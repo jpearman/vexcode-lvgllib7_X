@@ -2,7 +2,7 @@
  * @file lvgl.h
  * Include all LittleV GL related headers
  */
-
+ 
 #ifndef LVGL_H
 #define LVGL_H
 
@@ -77,9 +77,9 @@ extern "C" {
  *********************/
 /*Current version of LVGL*/
 #define LVGL_VERSION_MAJOR   7
-#define LVGL_VERSION_MINOR   0
+#define LVGL_VERSION_MINOR   2
 #define LVGL_VERSION_PATCH   0
-#define LVGL_VERSION_INFO    ""
+#define LVGL_VERSION_INFO ""
 
 /**********************
  *      TYPEDEFS

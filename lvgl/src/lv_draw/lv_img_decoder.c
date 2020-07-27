@@ -7,7 +7,7 @@
  *      INCLUDES
  *********************/
 #include "lv_img_decoder.h"
-#include "../lv_core/lv_debug.h"
+#include "../lv_misc/lv_debug.h"
 #include "../lv_draw/lv_draw_img.h"
 #include "../lv_misc/lv_ll.h"
 #include "../lv_misc/lv_color.h"
@@ -89,6 +89,9 @@ void _lv_img_decoder_init(void)
 lv_res_t lv_img_decoder_get_info(const char * src, lv_img_header_t * header)
 {
     header->always_zero = 0;
+    header->h = 0;
+    header->w = 0;
+    header->cf = LV_IMG_CF_UNKNOWN;
 
     lv_res_t res = LV_RES_INV;
     lv_img_decoder_t * d;
@@ -148,10 +151,6 @@ lv_res_t lv_img_decoder_open(lv_img_decoder_dsc_t * dsc, const void * src, lv_co
 
         /*Opened successfully. It is a good decoder to for this image source*/
         if(res == LV_RES_OK) break;
-    }
-
-    if(res == LV_RES_INV) {
-        _lv_memset_00(dsc, sizeof(lv_img_decoder_dsc_t));
     }
 
     return res;
@@ -568,6 +567,11 @@ static lv_res_t lv_img_decoder_built_in_line_true_color(lv_img_decoder_dsc_t * d
 
     return LV_RES_OK;
 #else
+    LV_UNUSED(dsc);
+    LV_UNUSED(x);
+    LV_UNUSED(y);
+    LV_UNUSED(len);
+    LV_UNUSED(buf);
     LV_LOG_WARN("Image built-in decoder cannot read file because LV_USE_FILESYSTEM = 0");
     return LV_RES_INV;
 #endif

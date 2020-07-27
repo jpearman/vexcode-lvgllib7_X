@@ -10,7 +10,7 @@
 #include "lv_cpicker.h"
 #if LV_USE_CPICKER != 0
 
-#include "../lv_core/lv_debug.h"
+#include "../lv_misc/lv_debug.h"
 #include "../lv_draw/lv_draw_arc.h"
 #include "../lv_themes/lv_theme.h"
 #include "../lv_core/lv_indev.h"
@@ -701,6 +701,7 @@ static lv_res_t lv_cpicker_signal(lv_obj_t * cpicker, lv_signal_t sign, void * p
         lv_obj_invalidate(cpicker);
     }
     else if(sign == LV_SIGNAL_CONTROL) {
+#if LV_USE_GROUP
         uint32_t c = *((uint32_t *)param); /*uint32_t because can be UTF-8*/
 
         if(c == LV_KEY_RIGHT || c == LV_KEY_UP) {
@@ -745,6 +746,7 @@ static lv_res_t lv_cpicker_signal(lv_obj_t * cpicker, lv_signal_t sign, void * p
                 if(res != LV_RES_OK) return res;
             }
         }
+#endif
     }
     else if(sign == LV_SIGNAL_PRESSED) {
         ext->last_change_time = lv_tick_get();
