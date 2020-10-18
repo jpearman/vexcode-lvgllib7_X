@@ -221,11 +221,37 @@ typedef struct {
 #if LV_USE_ASSERT_STYLE
     uint32_t sentinel;
 #endif
-    uint8_t style_cnt;
-    uint8_t has_local    : 1;
-    uint8_t has_trans    : 1;
-    uint8_t skip_trans   : 1;       /*1: Temporally skip the transition style if any*/
-    uint8_t ignore_trans   : 1;     /*1: Mark that this style list shouldn't receive transitions at all*/
+    uint32_t style_cnt     : 6;
+    uint32_t has_local     : 1;
+    uint32_t has_trans     : 1;
+    uint32_t skip_trans    : 1;      /*1: Temporally skip the transition style if any*/
+    uint32_t ignore_trans  : 1;      /*1: Mark that this style list shouldn't receive transitions at all*/
+    uint32_t valid_cache   : 1;      /*1: The cache is valid and can be used*/
+    uint32_t ignore_cache  : 1;      /*1: Ignore cache while getting value of properties*/
+
+    uint32_t radius_zero : 1;
+    uint32_t opa_scale_cover      : 1;
+    uint32_t clip_corner_off       : 1;
+    uint32_t transform_all_zero  : 1;
+    uint32_t pad_all_zero : 1;
+    uint32_t margin_all_zero : 1;
+    uint32_t blend_mode_all_normal : 1;
+    uint32_t bg_opa_transp : 1;
+    uint32_t bg_opa_cover : 1;
+
+    uint32_t border_width_zero : 1;
+    uint32_t border_side_full : 1;
+    uint32_t border_post_off : 1;
+
+    uint32_t outline_width_zero : 1;
+    uint32_t pattern_img_null : 1;
+    uint32_t shadow_width_zero : 1;
+    uint32_t value_txt_str : 1;
+    uint32_t img_recolor_opa_transp : 1;
+
+    uint32_t text_space_zero : 1;
+    uint32_t text_decor_none : 1;
+    uint32_t text_font_normal : 1;
 } lv_style_list_t;
 
 /**********************
@@ -570,7 +596,7 @@ bool lv_debug_check_style_list(const lv_style_list_t * list);
  *     lv_style_init(&my_style);
  *     lv_style_copy(&my_style, &style_to_copy);
  */
-#define LV_STYLE_CREATE(name, copy_p) static lv_style_t name; lv_style_init(&name); lv_style_copy(&name, copy);
+#define LV_STYLE_CREATE(name, copy_p) static lv_style_t name; lv_style_init(&name); lv_style_copy(&name, copy_p);
 
 
 
@@ -592,13 +618,13 @@ bool lv_debug_check_style_list(const lv_style_list_t * list);
 #   define LV_ASSERT_STYLE_LIST(list_p) LV_DEBUG_ASSERT(LV_DEBUG_IS_STYLE_LIST(list_p), "Invalid style list", list_p);
 #  endif
 # else
-#   define LV_ASSERT_STYLE(style_p) true
-#   define LV_ASSERT_STYLE_LIST(list_p) true
+#   define LV_ASSERT_STYLE(style_p)
+#   define LV_ASSERT_STYLE_LIST(list_p)
 # endif
 
 #else
-# define LV_ASSERT_STYLE(p) true
-# define LV_ASSERT_STYLE_LIST(p) true
+# define LV_ASSERT_STYLE(p)
+# define LV_ASSERT_STYLE_LIST(p)
 #endif
 
 #ifdef __cplusplus

@@ -7,3 +7,4 @@ compile_commands.json
 !/build/include
 !/build/include/**
 !/build/libv5lvgl.a
+.DS_Store
