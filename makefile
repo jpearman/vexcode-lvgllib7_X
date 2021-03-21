@@ -15,6 +15,7 @@ OBJ  = $(BUILD)/demo/demo.o
 
 # location of include files that c and cpp files depend on
 SRC_H  = $(wildcard include/*.h)
+SRC_H += ./lv_conf.h
 
 # additional dependancies
 SRC_A  = makefile
